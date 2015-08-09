@@ -1,6 +1,6 @@
-### mwget 
+## mwget 
 
-支持多进程下载
+这是一个简单实现的多进程下载工具
 
 ### 介绍
 
@@ -14,7 +14,8 @@ pip install mwget
 python -m mwget.multiwget 'http://xiaorui.cc/xxx.tar.gz'
 ```
 
-测试
+### 测试
+
 http://mirrors.163.com/centos/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1503.iso
 
 ### todolist
