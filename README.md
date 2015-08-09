@@ -22,3 +22,8 @@ http://mirrors.163.com/centos/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1503.iso
 
 1. 断点下载
 2. 更多的参数支持
+
+### 更多信息
+
+请访问, [xiaorui.cc](http://xiaorui.cc "mwget info") 
+
