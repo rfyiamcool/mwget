@@ -2,10 +2,10 @@ from setuptools import setup
 
 setup(
     name = "mwget",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "ruifengyun",
     author_email = "rfyiamcool@163.com",
-    description = "threading download file",
+    description = "support threading download file",
     license = "MIT",
     keywords = "wget threading",
     url = "https://github.com/rfyiamcool/mwget",

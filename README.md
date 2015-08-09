@@ -22,6 +22,7 @@ http://mirrors.163.com/centos/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1503.iso
 
 1. 断点下载
 2. 更多的参数支持
+3. 验证后清理tmp
 
 ### 更多信息
 
