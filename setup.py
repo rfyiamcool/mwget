@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "mwget",
-    version = "3.1.0",
+    version = "3.2.0",
     author = "ruifengyun",
     author_email = "rfyiamcool@163.com",
     description = "support threading download file",
