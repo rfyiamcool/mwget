@@ -16,7 +16,10 @@ python -m mwget.multiwget 'http://xiaorui.cc/xxx.tar.gz'
 
 ### 测试
 
+可以用163的镜像源进行测试
+```
 http://mirrors.163.com/centos/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1503.iso
+```
 
 ### todolist
 
