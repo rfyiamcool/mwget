@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
-import util
 import os
-import sys
-from os import path
-import multiprocessing
-import Queue
 import time
+import Queue
 import shutil
+import multiprocessing
+
+import util
 
 
 class FileMwget():
-    def __init__(self, url, save_path=None, status_func=None, done_func=None,
-                 debug=False):
+    def __init__(self, url, save_path=None, status_func=None, done_func=None, process_num=10,
+                debug=False):
         self.url = url
         self.debug = debug
 
@@ -20,12 +19,12 @@ class FileMwget():
             save_path = url.split('/')[-1]
 
         if save_path[0] != '/':
-            save_path = path.join(os.getcwd(), save_path)
+            save_path = os.path.join(os.getcwd(), save_path)
         self.save_path = save_path
 
         self.hash = util.md5(url)
-        self.temp_dir = path.join(os.getcwd(), 'tmp')
-        self.data_path = path.join(self.temp_dir, self.hash)
+        self.temp_dir = os.path.join(os.getcwd(), 'tmp')
+        self.data_path = os.path.join(self.temp_dir, self.hash)
 
         self.meta = {}
         self.task_queue = multiprocessing.Queue()
@@ -44,9 +43,9 @@ class FileMwget():
             print " ".join([str(a) for a in args])
 
     def init(self):
-        if not path.exists(self.temp_dir) and not path.isdir(self.temp_dir):
+        if not os.path.exists(self.temp_dir) and not os.path.isdir(self.temp_dir):
             os.mkdir(self.temp_dir)
-        if not path.exists(self.data_path) and not path.isdir(self.data_path):
+        if not os.path.exists(self.data_path) and not os.path.isdir(self.data_path):
             os.mkdir(self.data_path)
 
         size = util.get_source_size(self.url, 3)
@@ -66,7 +65,7 @@ class FileMwget():
             try:
                 index = self.task_queue.get(True, 3)
                 ck_path = self.chunk_path(index)
-                if not path.exists(ck_path):
+                if not os.path.exists(ck_path):
                     (_start, _end) = self.chunk_range(index)
                     data = util.download_chunk(self.url, _start, _end, 5)
                     if data:
@@ -92,7 +91,7 @@ class FileMwget():
             return False
 
         for i in range(0, self.meta['num']):
-            if not path.exists(self.chunk_path(i)):
+            if not os.path.exists(self.chunk_path(i)):
                 return False
         return True
 
@@ -111,7 +110,7 @@ class FileMwget():
             raise Exception("not finish download")
 
     def clean(self):
-        if path.exists(self.data_path) and path.isdir(self.data_path):
+        if os.path.exists(self.data_path) and os.path.isdir(self.data_path):
             shutil.rmtree(self.data_path)
 
         if not os.listdir(self.temp_dir):
@@ -129,7 +128,7 @@ class FileMwget():
         _end = _start + self.meta['chunk_size'] - 1
         if index is self.meta['num'] - 1:
             _end += self.meta['size'] % self.meta['num']
-        return path.join(self.data_path, str(_start) + '-' + str(_end))
+        return os.path.join(self.data_path, str(_start) + '-' + str(_end))
 
     def run(self):
         self.init()
@@ -158,14 +157,3 @@ class FileMwget():
             'speed': '%s/s' % util.readable_size(self.meta['size'] /
                                                  self.elapsed_time)
         }
-
-
-if __name__ == "__main__":
-    if sys.argv[1:]:
-        mfile = sys.argv[1]
-    else:
-        print 'give me url'
-        sys.exit()
-    down = FileMwget(mfile, debug=True)
-    down.run()
-    print down.get_report()
