@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import time
 import Queue
 import shutil
@@ -157,3 +158,15 @@ class FileMwget():
             'speed': '%s/s' % util.readable_size(self.meta['size'] /
                                                  self.elapsed_time)
         }
+
+
+if __name__ == "__main__":
+    if sys.argv[1:]:
+        mfile = sys.argv[1]
+    else:
+        print 'give me url'
+        sys.exit()
+
+    down = FileMwget(mfile, process_num=10, debug=True)
+    down.run()
+    print down.get_report()

@@ -14,6 +14,13 @@ pip install mwget
 python -m mwget.multiwget http://mirrors.163.com/centos/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1611.iso
 ```
 
+or
+```
+git clone git@github.com:rfyiamcool/mwget.git
+cd mwget
+python test.py url
+```
+
 ### 测试
 
 可以用163的镜像源进行测试
